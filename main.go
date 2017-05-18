@@ -24,11 +24,11 @@ func main() {
 }
 
 func launchIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("You just launched the Farmerbank app!")
+	echoResp.OutputSpeech("You just launched the Farmerbank app!").EndSession(false)
 }
 
 func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("Hello world from my new Echo test app! " + strconv.Itoa(retrieveKoopsomBedr()))
+	echoResp.OutputSpeech("Hello world from my new Echo test app! " + strconv.Itoa(retrieveKoopsomBedr())).EndSession(true)
 }
 
 func retrieveKoopsomBedr() int {
