@@ -21,5 +21,5 @@ func launchIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoRespons
 }
 
 func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("Hello world from my new Echo test app!").Card("Hello World", "This is a test card.")
+	echoResp.OutputSpeech("Hello world from my new Echo test app!")
 }
