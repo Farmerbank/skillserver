@@ -12,7 +12,7 @@ var (
 	bwfClient    = bwfclient.New()
 	applications = map[string]interface{}{
 		"/echo/helloworld": alexa.EchoApplication{
-			AppID:    "amzn1.ask.skill.8c0cabc9-c18b-4d53-ac7f-61e2d6f367a2",
+			AppID:    "amzn1.ask.skill.a1c73b55-4e76-45f2-8478-bc79b77cc537",
 			OnLaunch: launchIntentHandler,
 			OnIntent: echoIntentHandler,
 		},
