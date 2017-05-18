@@ -32,7 +32,10 @@ func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse)
 }
 
 func retrieveKoopsomBedr() int {
-	resp, err := bwfClient.Request(40000, 0)
+	resp, err := bwfClient.Request(bwfclient.BwfRequest{
+		AanvragerBrutoJaarinkomenBedr: 40000,
+		PartnerBrutoJaarinkomenBedr:   0,
+	})
 	if err != nil {
 		fmt.Print(err)
 	}
