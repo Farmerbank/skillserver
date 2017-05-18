@@ -20,15 +20,7 @@ var (
 )
 
 func main() {
-
-	resp, err := bwfClient.Request(40000, 0)
-	if err != nil {
-		fmt.Print(err)
-	}
-
-	fmt.Print(resp.MaxTeLenenObvInkomen.Tienjaarsrente.KoopsomBedr)
-
-	// alexa.Run(applications, "3000")
+	alexa.Run(applications, "3000")
 }
 
 func launchIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
