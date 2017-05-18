@@ -1,0 +1,21 @@
+{
+	"ImportPath": "github.com/naipath/Farmerbank",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "github.com/codegangsta/negroni",
+			"Comment": "v0.2.0-115-g1d8981a",
+			"Rev": "1d8981a52d6bda4467a9faacf3fdddd38222dfc4"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.3.0-6-g4c1c395",
+			"Rev": "4c1c3952b7d9d0a061a3fa7b36fd373ba0398ebc"
+		},
+		{
+			"ImportPath": "github.com/mikeflynn/go-alexa/skillserver",
+			"Rev": "9ece261964cfa3c27747c9e296240a52e8a16588"
+		}
+	]
+}
