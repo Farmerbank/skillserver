@@ -177,6 +177,47 @@ func (r ListTransactions) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Ech
 	counterParty, _ := echoReq.GetSlotValue("counterParty")
 	transactionType, _ := echoReq.GetSlotValue("type")
 
+	if counterParty != "" {
+		transactions := getAllTransactions()
+		for _, v := range transactions {
+			if strings.HasPrefix(v.CounterParty, counterParty) {
+				echoResp.OutputSpeech("For the counterparty " + counterParty + " you had a total of " + v.Amount + " of the type " + v.Type).EndSession(false)
+				break
+			}
+		}
+	} else if transactionType != "" {
+
+		transactions := getAllTransactions()
+		totalTransactionType := 0
+		for _, v := range transactions {
+			if strings.HasPrefix(v.Type, transactionType) {
+				totalTransactionType++
+			}
+		}
+		echoResp.OutputSpeech("For the transaction type " + transactionType + " you had a total of " + strconv.Itoa(totalTransactionType)).EndSession(false)
+	} else {
+
+		creditTransactions := getAllCreditTransactions()
+		totalCredit := 0
+		for _, v := range creditTransactions {
+			creditConv, _ := strconv.Atoi(v.Amount[1:len(v.Amount)])
+			totalCredit += creditConv
+		}
+
+		debitTransactions := getAllDebitTransactions()
+		totalDebit := 0
+		for _, v := range debitTransactions {
+			debitConv, _ := strconv.Atoi(v.Amount[1:len(v.Amount)])
+			totalDebit += debitConv
+		}
+
+		balance := totalDebit - totalCredit
+
+		echoResp.OutputSpeech("Your current account balance is " + strconv.Itoa(balance)).EndSession(false)
+	}
+}
+
+func getAllTransactions() Transactions {
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -187,24 +228,33 @@ func (r ListTransactions) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Ech
 
 	var data Transactions
 	json.NewDecoder(resp.Body).Decode(&data)
+	return data
+}
 
-	if counterParty != "" {
-		for _, v := range data {
-			if strings.HasPrefix(v.CounterParty, counterParty) {
-				echoResp.OutputSpeech("For the counterparty " + counterParty + " you had a total of " + v.Amount + " of the type " + v.Type).EndSession(false)
-				break
-			}
-		}
-	} else if transactionType != "" {
-
-		totalTransactionType := 0
-		for _, v := range data {
-			if strings.HasPrefix(v.Type, transactionType) {
-				totalTransactionType++
-			}
-		}
-		echoResp.OutputSpeech("For the transaction type " + transactionType + " you had a total of " + strconv.Itoa(totalTransactionType)).EndSession(false)
-	} else {
-		echoResp.OutputSpeech("You had a total amount of transactions of " + strconv.Itoa(len(data))).EndSession(false)
+func getAllDebitTransactions() Transactions {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
+	client := &http.Client{Transport: tr}
+	resp, _ := client.Get("https://farmerbank.nl/transactions/Transactions/Debit")
+
+	defer resp.Body.Close()
+
+	var data Transactions
+	json.NewDecoder(resp.Body).Decode(&data)
+	return data
+}
+
+func getAllCreditTransactions() Transactions {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
+	resp, _ := client.Get("https://farmerbank.nl/transactions/Transactions/Credit")
+
+	defer resp.Body.Close()
+
+	var data Transactions
+	json.NewDecoder(resp.Body).Decode(&data)
+	return data
 }
