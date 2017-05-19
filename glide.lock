@@ -1,8 +1,12 @@
 hash: 9d29986c3634f1abce4ede4aed6df069de10585d7f8fec832134bc0a1f0825cb
-updated: 2017-05-19T02:55:32.74933114+02:00
+updated: 2017-05-19T02:59:07.61001363+02:00
 imports:
 - name: github.com/codegangsta/negroni
   version: 1d8981a52d6bda4467a9faacf3fdddd38222dfc4
+- name: github.com/farmerbank/skillserver
+  version: 39cf0b1d0090966044f00b93e756d1dc38b9e7f8
+  subpackages:
+  - skills/helloworld
 - name: github.com/gorilla/context
   version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
 - name: github.com/gorilla/mux
