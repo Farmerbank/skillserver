@@ -141,5 +141,7 @@ func (r MadeBy) name() string {
 }
 
 func (r MadeBy) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("Farmer bank was created by e bird and the care bearers").EndSession(false)
+	echoResp.OutputSpeech("Farmer bank was created by e bird and the care bearers").
+		Reprompt("Unbelievable isn't it").
+		EndSession(false)
 }
