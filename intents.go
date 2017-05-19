@@ -165,6 +165,7 @@ func (r ListTransactions) name() string {
 
 func (r ListTransactions) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 	counterParty, _ := echoReq.GetSlotValue("counterParty")
+	transactionType, _ := echoReq.GetSlotValue("type")
 
 	resp, _ := http.Get("https://changethis.com/Transactions")
 	defer resp.Body.Close()
@@ -181,6 +182,16 @@ func (r ListTransactions) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Ech
 			}
 		}
 		echoResp.OutputSpeech("For the counterparty " + counterParty + " you had a total of " + strconv.Itoa(totalTransactions)).EndSession(false)
+	} else if transactionType != "" {
+
+		totalTransactionType := 0
+		for _, v := range data {
+			// do something
+			if strings.HasPrefix(v.CounterParty, counterParty) {
+				totalTransactionType++
+			}
+		}
+		echoResp.OutputSpeech("For the transaction type " + transactionType + " you had a total of " + strconv.Itoa(totalTransactionType)).EndSession(false)
 	} else {
 		echoResp.OutputSpeech("You had a total amount of transactions of " + strconv.Itoa(len(data))).EndSession(false)
 	}
