@@ -66,7 +66,7 @@ func (r MaximumMortgage) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Echo
 		echoResp.OutputSpeechSSML(fmt.Sprintf(`
 		<speak>
 		You can get a mortgage of <say-as interpret-as="cardinal">%s</say-as>
-		based on 1.7% with a fixed rate of 10 years
+		based on 1.7%% with a fixed rate of 10 years
 		</speak>`,
 			strconv.Itoa(retrieveKoopsomBedr(yearIcome)))).EndSession(false)
 	}
