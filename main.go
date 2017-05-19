@@ -14,7 +14,7 @@ import (
 var (
 	bwfClient    = bwfclient.New()
 	applications = map[string]interface{}{
-		"/echo/helloworld": alexa.EchoApplication{
+		"/echo/farmerbank": alexa.EchoApplication{
 			AppID:    "amzn1.ask.skill.a1c73b55-4e76-45f2-8478-bc79b77cc537",
 			OnLaunch: launchIntentHandler,
 			OnIntent: echoIntentHandler,
