@@ -51,8 +51,6 @@ func (r MaximumMortgage) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Echo
 	} else {
 		echoResp.Reprompt("what is your year income").EndSession(false)
 	}
-
-	// echoResp.OutputSpeech("You can loan " + strconv.Itoa(retrieveKoopsomBedr(40000)) + "euros").EndSession(false)
 }
 
 func retrieveKoopsomBedr(yearIncome int) int {
