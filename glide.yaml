@@ -1,0 +1,11 @@
+package: github.com/Farmerbank/skillserver
+import:
+- package: github.com/codegangsta/negroni
+  version: 1d8981a52d6bda4467a9faacf3fdddd38222dfc4
+- package: github.com/gorilla/mux
+  version: 4c1c3952b7d9d0a061a3fa7b36fd373ba0398ebc
+- package: github.com/mikeflynn/go-alexa
+  version: 9ece261964cfa3c27747c9e296240a52e8a16588
+  subpackages:
+  - skillserver
+- package: github.com/naipath/bwfclient

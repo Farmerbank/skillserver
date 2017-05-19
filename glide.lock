@@ -1,0 +1,16 @@
+hash: 9d29986c3634f1abce4ede4aed6df069de10585d7f8fec832134bc0a1f0825cb
+updated: 2017-05-19T02:55:32.74933114+02:00
+imports:
+- name: github.com/codegangsta/negroni
+  version: 1d8981a52d6bda4467a9faacf3fdddd38222dfc4
+- name: github.com/gorilla/context
+  version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
+- name: github.com/gorilla/mux
+  version: 4c1c3952b7d9d0a061a3fa7b36fd373ba0398ebc
+- name: github.com/mikeflynn/go-alexa
+  version: 9ece261964cfa3c27747c9e296240a52e8a16588
+  subpackages:
+  - skillserver
+- name: github.com/naipath/bwfclient
+  version: bdda5ac5f90c3167ce5c51c80fe200455d35e79b
+testImports: []
