@@ -180,13 +180,12 @@ func (r ListTransactions) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Ech
 	json.NewDecoder(resp.Body).Decode(&data)
 
 	if counterParty != "" {
-		totalTransactions := 0
 		for _, v := range data {
 			if strings.HasPrefix(v.CounterParty, counterParty) {
-				totalTransactions++
+				echoResp.OutputSpeech("For the counterparty " + counterParty + " you had a total of " + v.Amount + " of the type " + v.Type).EndSession(false)
+				break
 			}
 		}
-		echoResp.OutputSpeech("For the counterparty " + counterParty + " you had a total of " + strconv.Itoa(totalTransactions)).EndSession(false)
 	} else if transactionType != "" {
 
 		totalTransactionType := 0
