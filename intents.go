@@ -45,11 +45,14 @@ func (r MaximumMortgage) name() string {
 }
 func (r MaximumMortgage) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 	income, err := echoReq.GetSlotValue("income")
+	fmt.Print("Total year income", income)
 	if err != nil {
-		yearIcome, _ := strconv.Atoi(income)
-		echoResp.OutputSpeech("You can loan " + strconv.Itoa(retrieveKoopsomBedr(yearIcome)) + "euros").EndSession(false)
-	} else {
 		echoResp.Reprompt("what is your year income").EndSession(false)
+	} else {
+		fmt.Print(income, err)
+		yearIcome, _ := strconv.Atoi(income)
+		echoResp.OutputSpeechSSML(fmt.Sprintf(`speak>You can loan <say-as interpret-as="cardinal">%s</say-as> euros</speak>`,
+			strconv.Itoa(retrieveKoopsomBedr(yearIcome)))).EndSession(false)
 	}
 }
 
