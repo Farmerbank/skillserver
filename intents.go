@@ -25,13 +25,13 @@ func (r ElevatorPitch) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoRe
 	echoResp.OutputSpeechSSML(
 		`
 		<speak>
-		<p>Starting the elevator pitch.</p> 
-		<p>With our newly build application <emphasis level="moderate">farmer bank</emphasis>, 
-		it is possible to interact with your bank account in various ways using a natural dialogue.</p>
-		<p><emphasis level="moderate">Farmer bank</emphasis> will be your new personal financial assistant who can take care of all your financial needs and questions.</p>
-		<p>Our app can give you house estimations, mortgage capabilities, account balance information and much more.
-		Customer interaction has never been this easy.</p>
-		<p>All you have to do is ask questions.</p>
+			<p>Starting the elevator pitch.</p> 
+			<p>With our newly build application <emphasis level="moderate">farmer bank</emphasis>, 
+			it is possible to interact with your bank account in various ways using a natural dialogue.</p>
+			<p><emphasis level="moderate">Farmer bank</emphasis> will be your new personal financial assistant who can take care of all your financial needs and questions.</p>
+			<p>Our app can give you house estimations, mortgage capabilities, account balance information and much more.
+			Customer interaction has never been this easy.</p>
+			<p>All you have to do is ask questions.</p>
 		</speak>
 	`).EndSession(false)
 }
@@ -53,7 +53,7 @@ func (r CancelIntent) name() string {
 	return "AMAZON.CancelIntent"
 }
 func (r CancelIntent) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("Closing the farmerbank application.").EndSession(true)
+	echoResp.OutputSpeech("Thanks for using farmer bank.").EndSession(true)
 }
 
 type StopIntent struct {
@@ -63,7 +63,7 @@ func (r StopIntent) name() string {
 	return "AMAZON.StopIntent"
 }
 func (r StopIntent) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("Closing the farmerbank application.").EndSession(true)
+	echoResp.OutputSpeech("CThanks for using farmer bank.").EndSession(true)
 }
 
 type HouseEstimation struct {
