@@ -22,7 +22,18 @@ func (r ElevatorPitch) name() string {
 	return "ElevatorPitch"
 }
 func (r ElevatorPitch) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("Starting the elevatorpitch. With our newly build application farmer bank, it is possible to interact with your bank account in various ways using a natural dialogue. Farmer bank will be your new personal financial assistant who can take care of all your financial needs and questions. Our app can give you house estimations, mortgage capabilities, account balance information and much more. Customer interaction has never been this easy. All you have to do is ask questions.").EndSession(false)
+	echoResp.OutputSpeechSSML(
+		`
+		<speak>
+		<p>Starting the elevator pitch.</p> 
+		<p>With our newly build application <emphasis level="moderate">farmer bank</emphasis>, 
+		it is possible to interact with your bank account in various ways using a natural dialogue.</p>
+		<p><emphasis level="moderate">Farmer bank</emphasis> will be your new personal financial assistant who can take care of all your financial needs and questions.</p>
+		<p>Our app can give you house estimations, mortgage capabilities, account balance information and much more.
+		Customer interaction has never been this easy.</p>
+		<p>All you have to do is ask questions.</p>
+		</speak>
+	`).EndSession(false)
 }
 
 type GetBalance struct {
