@@ -28,7 +28,16 @@ func launchIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoRespons
 }
 
 func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("Hello world from my new Echo test app! " + strconv.Itoa(retrieveKoopsomBedr())).EndSession(true)
+	switch echoReq.GetIntentName() {
+	case "GetBalance":
+		echoResp.OutputSpeech("You can loan " + strconv.Itoa(retrieveKoopsomBedr())).EndSession(false)
+
+	case "ElevatorPitch":
+		echoResp.OutputSpeech("Starting the elevatorpitch. With this application it is possible to interact with your bank account in various ways using a natural dialogue.").EndSession(false)
+
+	default:
+		echoResp.OutputSpeech("Unrecognized command").EndSession(false)
+	}
 }
 
 func retrieveKoopsomBedr() int {
