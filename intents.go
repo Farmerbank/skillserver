@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"strings"
+	"time"
 
 	"fmt"
 
@@ -142,6 +144,44 @@ func (r MadeBy) name() string {
 
 func (r MadeBy) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 	echoResp.OutputSpeech("Farmer bank was created by e bird and the care bearers").
-		Reprompt("Unbelievable isn't it").
 		EndSession(false)
+}
+
+type Transaction struct {
+	Type         string    `json:"Type"`
+	Amount       string    `json:"Amount"`
+	CounterParty string    `json:"CounterParty"`
+	Date         time.Time `json:"Date"`
+}
+
+type Transactions []Transaction
+
+type ListTransactions struct {
+}
+
+func (r ListTransactions) name() string {
+	return "ListTransactions"
+}
+
+func (r ListTransactions) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
+	counterParty, _ := echoReq.GetSlotValue("counterParty")
+
+	resp, _ := http.Get("https://changethis.com/Transactions")
+	defer resp.Body.Close()
+
+	var data Transactions
+	json.NewDecoder(resp.Body).Decode(&data)
+
+	if counterParty != "" {
+		totalTransactions := 0
+		for _, v := range data {
+			// do something
+			if strings.HasPrefix(v.CounterParty, counterParty) {
+				totalTransactions++
+			}
+		}
+		echoResp.OutputSpeech("For the counterparty " + counterParty + " you had a total of " + strconv.Itoa(totalTransactions)).EndSession(false)
+	} else {
+		echoResp.OutputSpeech("You had a total amount of transactions of " + strconv.Itoa(len(data))).EndSession(false)
+	}
 }
