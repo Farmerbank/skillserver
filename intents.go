@@ -346,5 +346,5 @@ func (r FinancialReport) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Echo
 		totalBillAmount += billAmount
 	}
 
-	echoResp.OutputSpeech("Financial report: Your account balance is: " + strconv.Itoa(balance) + ". Total Debit: " + strconv.Itoa(totalDebit) + ". Total Credit: " + strconv.Itoa(totalCredit) + ". Total outstanding bills: " + strconv.Itoa(totalBillAmount)).EndSession(false)
+	echoResp.OutputSpeech("Financial report: Your account balance is: " + strconv.Itoa(balance) + ". Total Debit: " + strconv.Itoa(totalDebit) + ". Total Credit: " + strconv.Itoa(totalCredit) + ". Total outstanding bills: " + strconv.Itoa(totalBillAmount) + ". Your balance after paying the outstanding bills is: " + strconv.Itoa(totalCredit-totalBillAmount)).EndSession(false)
 }
