@@ -157,6 +157,18 @@ func (r MadeBy) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse)
 		EndSession(false)
 }
 
+type SalaryDeposit struct {
+}
+
+func (r SalaryDeposit) name() string {
+	return "SalaryDeposit"
+}
+
+func (r SalaryDeposit) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
+	echoResp.OutputSpeech("You will receive your pay check approximately in 5 days").
+		EndSession(false)
+}
+
 type Transaction struct {
 	Type         string    `json:"Type"`
 	Amount       string    `json:"Amount"`
