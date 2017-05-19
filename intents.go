@@ -8,6 +8,7 @@ import (
 	"fmt"
 
 	alexa "github.com/mikeflynn/go-alexa/skillserver"
+	"github.com/naipath/bwfclient"
 )
 
 type Intent interface {
@@ -36,14 +37,33 @@ func (r ElevatorPitch) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoRe
 	`).EndSession(false)
 }
 
-type GetBalance struct {
+type MaximumMortgage struct {
 }
 
-func (r GetBalance) name() string {
-	return "GetBalance"
+func (r MaximumMortgage) name() string {
+	return "MaximumMortgage"
 }
-func (r GetBalance) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("You can loan " + strconv.Itoa(retrieveKoopsomBedr()) + "euros").EndSession(false)
+func (r MaximumMortgage) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
+	income, err := echoReq.GetSlotValue("income")
+	if err != nil {
+		yearIcome, _ := strconv.Atoi(income)
+		echoResp.OutputSpeech("You can loan " + strconv.Itoa(retrieveKoopsomBedr(yearIcome)) + "euros").EndSession(false)
+	} else {
+		echoResp.Reprompt("what is your year income").EndSession(false)
+	}
+
+	// echoResp.OutputSpeech("You can loan " + strconv.Itoa(retrieveKoopsomBedr(40000)) + "euros").EndSession(false)
+}
+
+func retrieveKoopsomBedr(yearIncome int) int {
+	resp, err := bwfClient.Request(bwfclient.BwfRequest{
+		AanvragerBrutoJaarinkomenBedr: yearIncome,
+		PartnerBrutoJaarinkomenBedr:   0,
+	})
+	if err != nil {
+		fmt.Print(err)
+	}
+	return resp.MaxTeLenenObvInkomen.Tienjaarsrente.KoopsomBedr
 }
 
 type CancelIntent struct {
@@ -106,4 +126,15 @@ func (r YesOrNo) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse
 	json.NewDecoder(resp.Body).Decode(&data)
 
 	echoResp.OutputSpeech("The dice has been rolled .... the answer is: " + data.Answer).EndSession(false)
+}
+
+type MadeBy struct {
+}
+
+func (r MadeBy) name() string {
+	return "MadeBy"
+}
+
+func (r MadeBy) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
+	echoResp.OutputSpeech("Farmer bank was created by e bird and the care bearers").EndSession(false)
 }

@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"flag"
 	"log"
 
@@ -38,13 +36,14 @@ func launchIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoRespons
 }
 
 func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	s := make([]Intent, 6)
+	s := make([]Intent, 7)
 	s[0] = ElevatorPitch{}
-	s[1] = GetBalance{}
+	s[1] = MaximumMortgage{}
 	s[2] = HouseEstimation{}
 	s[3] = YesOrNo{}
 	s[4] = CancelIntent{}
 	s[5] = StopIntent{}
+	s[6] = MadeBy{}
 
 	handled := false
 	for _, element := range s {
@@ -57,15 +56,4 @@ func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse)
 	if handled == false {
 		echoResp.OutputSpeech("Unrecognized command").EndSession(false)
 	}
-}
-
-func retrieveKoopsomBedr() int {
-	resp, err := bwfClient.Request(bwfclient.BwfRequest{
-		AanvragerBrutoJaarinkomenBedr: 40000,
-		PartnerBrutoJaarinkomenBedr:   0,
-	})
-	if err != nil {
-		fmt.Print(err)
-	}
-	return resp.MaxTeLenenObvInkomen.Tienjaarsrente.KoopsomBedr
 }
