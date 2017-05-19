@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"net/http"
 	"strconv"
@@ -167,7 +168,12 @@ func (r ListTransactions) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Ech
 	counterParty, _ := echoReq.GetSlotValue("counterParty")
 	transactionType, _ := echoReq.GetSlotValue("type")
 
-	resp, _ := http.Get("https://changethis.com/Transactions")
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
+	resp, _ := client.Get("https://farmerbank.nl/transactions/Transactions")
+
 	defer resp.Body.Close()
 
 	var data Transactions
@@ -176,7 +182,6 @@ func (r ListTransactions) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Ech
 	if counterParty != "" {
 		totalTransactions := 0
 		for _, v := range data {
-			// do something
 			if strings.HasPrefix(v.CounterParty, counterParty) {
 				totalTransactions++
 			}
@@ -186,8 +191,7 @@ func (r ListTransactions) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Ech
 
 		totalTransactionType := 0
 		for _, v := range data {
-			// do something
-			if strings.HasPrefix(v.CounterParty, counterParty) {
+			if strings.HasPrefix(v.Type, transactionType) {
 				totalTransactionType++
 			}
 		}
