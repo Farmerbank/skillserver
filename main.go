@@ -6,10 +6,12 @@ import (
 
 	alexa "github.com/mikeflynn/go-alexa/skillserver"
 	"github.com/naipath/bwfclient"
+	"flag"
+	"log"
 )
 
 var (
-	bwfClient    = bwfclient.New()
+	bwfClient = bwfclient.New()
 	applications = map[string]interface{}{
 		"/echo/helloworld": alexa.EchoApplication{
 			AppID:    "amzn1.ask.skill.a1c73b55-4e76-45f2-8478-bc79b77cc537",
@@ -20,7 +22,16 @@ var (
 )
 
 func main() {
-	alexa.Run(applications, "3000")
+
+	var (
+		httpPort = flag.String("port", "3000", "HTTP server port")
+	)
+	flag.Parse()
+
+	log.Println("Starting Farmerbank Skillserver")
+	log.Printf("Service listening on %s", *httpPort)
+
+	alexa.Run(applications, *httpPort)
 }
 
 func launchIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
