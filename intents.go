@@ -29,13 +29,22 @@ func (r ElevatorPitch) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoRe
 	echoResp.OutputSpeechSSML(
 		`
 		<speak>
-			<p>Starting the elevator pitch.</p> 
-			<p>With our newly build application <emphasis level="moderate">farmer bank</emphasis>, 
-			it is possible to interact with your bank account in various ways using a natural dialogue.</p>
+			<p>Starting the elevator pitch.</p>
+			<p>With our newly created banking platform <emphasis level="moderate">farmer bank</emphasis>,
+			it is possible to interact with your bank account in various ways using just speech.</p>
 			<p><emphasis level="moderate">Farmer bank</emphasis> will be your new personal financial assistant who can take care of all your financial needs and questions.</p>
-			<p>Our app can give you house estimations, mortgage capabilities, account balance information and much more.
+			<p>take care of your banking needs while you cook, watch television, make breakfast of even do the dishes</p>.
+			<p>Our features include: mortgage estimates, transaction overviews, balance inquiries and bill payment management, all without ever touching a computer, tablet or even a phone.
 			Customer interaction has never been this easy.</p>
 			<p>All you have to do is ask questions.</p>
+			<p><emphasis level="moderate">farmer bank</emphasis> brings an unparalled level of convinience to every home and office when it comes to banking services</p>
+			<p>lowering the barrier between customer an bank to the level of natural language </p>
+			<break time="1s"/>
+			<p>by using state of the art speech recognition and artificial intelligence coupled with financial services aimed at satifying even the most demanding customers <emphasis level="moderate">farmer bank</emphasis> will dominate the banking industry for years to come</p>
+			<p><emphasis level="moderate">farmer bank</emphasis> is open and accesible to everyone </p>
+			<p>ranging from the youngest customers to the elderly and even the visually impaired</p>
+			<break time="1s"/>
+			<p> <emphasis level="strong">farmer bank</emphasis> the future of banking is here, and <emphasis level="moderate">everyone</emphasis> is invited</p> 
 		</speak>
 	`).EndSession(false)
 }
@@ -56,7 +65,7 @@ func (r MaximumMortgage) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Echo
 		yearIcome, _ := strconv.Atoi(income)
 		echoResp.OutputSpeechSSML(fmt.Sprintf(`
 		<speak>
-		You can get a mortgage of <say-as interpret-as="cardinal">%s</say-as> 
+		You can get a mortgage of <say-as interpret-as="cardinal">%s</say-as>
 		based on 1.7% with a fixed rate of 10 years
 		</speak>`,
 			strconv.Itoa(retrieveKoopsomBedr(yearIcome)))).EndSession(false)
