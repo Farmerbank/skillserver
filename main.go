@@ -38,11 +38,12 @@ func launchIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoRespons
 }
 
 func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	s := make([]Intent, 4)
+	s := make([]Intent, 5)
 	s[0] = ElevatorPitch{}
 	s[1] = GetBalance{}
-	s[2] = CancelIntent{}
-	s[3] = StopIntent{}
+	s[2] = HouseEstimation{}
+	s[3] = CancelIntent{}
+	s[4] = StopIntent{}
 
 	handled := false
 	for _, element := range s {
