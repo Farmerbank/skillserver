@@ -18,7 +18,7 @@ $ make release
 ```
 
 ```
-$ ./farmerbank
+$ scp release/skillserver-linux-amd64 ubuntu@farmerbank.nl:/srv/farmerbank-app/farmerbank
 ```
 
 Optionally you can specify the server address using `$ ./farmerbank`
