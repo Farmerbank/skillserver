@@ -34,7 +34,7 @@ func main() {
 }
 
 func launchIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("You just launched the Farmerbank app!    Moooh").EndSession(false)
+	echoResp.OutputSpeech("Welcome to the Farmerbank app!").EndSession(false)
 }
 
 func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
