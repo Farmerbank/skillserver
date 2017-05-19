@@ -310,5 +310,41 @@ func (r ListBills) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoRespon
 			echoResp.OutputSpeech("You have one outstanding bill from" + beneficiary + "in the amount of" + v.Amount).EndSession(false)
 		}
 	}
+}
 
+type FinancialReport struct {
+}
+
+func (r FinancialReport) name() string {
+	return "FinancialReport"
+}
+
+func (r FinancialReport) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
+	// outstaande rekeningen
+
+	creditTransactions := getAllCreditTransactions()
+	totalCredit := 0
+	for _, v := range creditTransactions {
+		creditConv, _ := strconv.Atoi(v.Amount[1:len(v.Amount)])
+		totalCredit += creditConv
+	}
+
+	debitTransactions := getAllDebitTransactions()
+	totalDebit := 0
+	for _, v := range debitTransactions {
+		debitConv, _ := strconv.Atoi(v.Amount[1:len(v.Amount)])
+		totalDebit += debitConv
+	}
+
+	balance := totalCredit - totalDebit
+
+	bills := getAllOutstandingBills()
+
+	totalBillAmount := 0
+	for _, v := range bills {
+		billAmount, _ := strconv.Atoi(v.Amount[1:len(v.Amount)])
+		totalBillAmount += billAmount
+	}
+
+	echoResp.OutputSpeech("Financial report: Your account balance is: " + strconv.Itoa(balance) + ". Total Debit: " + strconv.Itoa(totalDebit) + ". Total Credit: " + strconv.Itoa(totalCredit) + ". Total outstanding bills: " + strconv.Itoa(totalBillAmount)).EndSession(false)
 }

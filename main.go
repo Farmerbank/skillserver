@@ -36,7 +36,7 @@ func launchIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoRespons
 }
 
 func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	s := make([]Intent, 10)
+	s := make([]Intent, 11)
 	s[0] = ElevatorPitch{}
 	s[1] = MaximumMortgage{}
 	s[2] = HouseEstimation{}
@@ -47,6 +47,7 @@ func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse)
 	s[7] = ListTransactions{}
 	s[8] = SalaryDeposit{}
 	s[9] = ListBills{}
+	s[10] = FinancialReport{}
 
 	handled := false
 	for _, element := range s {
