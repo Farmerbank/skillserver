@@ -223,7 +223,7 @@ func (r ListTransactions) handle(echoReq *alexa.EchoRequest, echoResp *alexa.Ech
 			totalDebit += debitConv
 		}
 
-		balance := totalDebit - totalCredit
+		balance := totalCredit - totalDebit
 
 		echoResp.OutputSpeech("Your current account balance is " + strconv.Itoa(balance)).EndSession(false)
 	}
