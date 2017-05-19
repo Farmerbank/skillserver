@@ -53,7 +53,7 @@ func (r CancelIntent) name() string {
 	return "AMAZON.CancelIntent"
 }
 func (r CancelIntent) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("Thanks for using farmer bank.").EndSession(true)
+	echoResp.OutputSpeech("Thank you for using farmer bank.").EndSession(true)
 }
 
 type StopIntent struct {
@@ -63,7 +63,7 @@ func (r StopIntent) name() string {
 	return "AMAZON.StopIntent"
 }
 func (r StopIntent) handle(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("CThanks for using farmer bank.").EndSession(true)
+	echoResp.OutputSpeech("Thank you for using farmer bank.").EndSession(true)
 }
 
 type HouseEstimation struct {
