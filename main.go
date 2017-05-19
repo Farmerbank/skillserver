@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"strconv"
 
-	alexa "github.com/mikeflynn/go-alexa/skillserver"
-	"github.com/naipath/bwfclient"
 	"flag"
 	"log"
+
+	alexa "github.com/mikeflynn/go-alexa/skillserver"
+	"github.com/naipath/bwfclient"
 )
 
 var (
-	bwfClient = bwfclient.New()
+	bwfClient    = bwfclient.New()
 	applications = map[string]interface{}{
 		"/echo/helloworld": alexa.EchoApplication{
 			AppID:    "amzn1.ask.skill.a1c73b55-4e76-45f2-8478-bc79b77cc537",
@@ -45,6 +46,12 @@ func echoIntentHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse)
 
 	case "ElevatorPitch":
 		echoResp.OutputSpeech("Starting the elevatorpitch. With this application it is possible to interact with your bank account in various ways using a natural dialogue.").EndSession(false)
+
+	case "AMAZON.CancelIntent":
+		echoResp.OutputSpeech("Closing the farmerbank application.").EndSession(true)
+
+	case "AMAZON.StopIntent":
+		echoResp.OutputSpeech("Closing the farmerbank application.").EndSession(true)
 
 	default:
 		echoResp.OutputSpeech("Unrecognized command").EndSession(false)
